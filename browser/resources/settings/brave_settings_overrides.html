@@ -1,3 +1,124 @@
 <link rel="import" href="brave_clear_browsing_data_dialog/brave_clear_browsing_data_dialog_behavior.html">
+<!-- Need chromium icons to be defined so that we can rewrite -->
+<link rel="import" href="icons.html">
+<link rel="import" href="brave_icons.html">
 <link rel="import" href="chrome://brave-resources/polymer_overriding.html">
+
+
+<dom-module id="brave-settings-getting-started">
+  <template>
+    <style include="settings-shared md-select iron-flex">
+    </style>
+    <div class="settings-box">
+      <div class="start">
+        Hi
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<!-- Style Overrides -->
+<dom-module id="brave-override-style-settings-ui">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        --setings-card-max-width: 790px !important;
+      }
+      #container {
+        display: flex !important;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      @media only screen and  (max-width: 815px) {
+        settings-menu {
+          display: none;
+        }
+      }
+    </style>
+  </template>
+</dom-module>
+
+<dom-module id="brave-override-style-settings-menu">
+  <template>
+    <style>
+      :host {
+        --settings-nav-item-color: #424242 !important;
+        position: sticky;
+        top: 30px;
+        overflow-y: scroll;
+        min-width: 172px;
+        margin: 30px 12px !important;
+        padding: 30px !important;
+        background-color: #fff;
+        border: 1px solid #E5E5EA !important;
+        border-radius: 6px;
+        font-family: Poppins, -apple-system, system-ui, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      }
+
+      a[href] {
+        color: #A0A1B2 !important;
+        font-weight: 400 !important;
+        margin: 0 20px 20px 0 !important;
+        margin-inline-start: 0 !important;
+        margin-inline-end: 0 !important;
+        padding-bottom: 0 !important;
+        padding-top: 0 !important;
+        padding-inline-start: 0 !important;
+      }
+
+      a[href].iron-selected {
+        color: #424242 !important;
+        font-weight: 500 !important;
+      }
+
+      iron-icon {
+        color: var(--settings-nav-item-color);
+        margin-inline-end: 16px !important;
+        width: 24px;
+        height: 24px;
+      }
+
+      a[href],
+      #advancedButton {
+        --cr-selectable-focus_-_outline: var(--brave-focus-outline) !important;
+      }
+
+      #advancedButton {
+        padding: 0 !important;
+        margin-top: 30px !important;
+      }
+
+      #advancedButton > iron-icon {
+        margin-inline-end: 0 !important;
+      }
+
+      #settingsHeader,
+      #advancedButton {
+        align-items: center !important;
+        font-weight: normal !important;
+        font-size: larger !important;
+        color: #424242 !important;
+        margin-bottom: 20px !important;
+      }
+    </style>
+  </template>
+</dom-module>
+
+
+<dom-module id="brave-override-style-settings-basic-page">
+    <template>
+      <style>
+        :host {
+          min-width: 544px !important;
+        }
+
+      </style>
+    </template>
+  </dom-module>
+
+
+
 <script src="brave_settings_overrides.js"></script>
+
