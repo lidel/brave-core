@@ -51,7 +51,7 @@ cr.define('settings', function() {
   const handler = {
     get: function(obj, prop) {
       if (prop === 'appearance') return new Proxy({}, appearanceHandler);
-      if (prop === 'braveShieldsDefaults') return new Proxy({}, braveShieldsDefaultsHandler);
+      if (prop === 'braveShields') return new Proxy({}, braveShieldsDefaultsHandler);
       if (prop === 'braveSync') {
         if (loadTimeData.getBoolean('isSyncDisabled'))
           return false;

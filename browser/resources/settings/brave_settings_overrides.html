@@ -6,7 +6,6 @@
 <link rel="import" href="brave_default_extensions_page/brave_default_extensions_page.html">
 <link rel="import" href="default_brave_shields_page/default_brave_shields_page.html">
 <link rel="import" href="brave_sync_page/brave_sync_page.html">
-<link rel="import" href="default_browser_page/default_browser_page.html">
 
 <dom-module id="brave-settings-getting-started">
   <template>
@@ -16,6 +15,11 @@
       page-visibility="[[pageVisibility]]">
     </settings-people-page>
     <settings-default-browser-page></settings-default-browser-page>
+    <div class="settings-box">$i18n{onStartup}</div>
+    <div class="settings-box continuation">
+      <settings-on-startup-page prefs="{{prefs}}">
+      </settings-on-startup-page>
+    </div>
   </template>
 </dom-module>
 
