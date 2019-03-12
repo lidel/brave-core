@@ -6,10 +6,14 @@
 // This module is in global scope,
 // so create a temporary scope.
 (function () {
+  const debug = false
   // Re-write `Polymer(componentInfo)` function
   const oldFn = window.Polymer._polymerFn
   function newPolymerFn(component) {
     if (component && component.is) {
+      if (debug) {
+        console.debug(`Polymer component registering: ${component.is}`, component)
+      }
       addBraveBehaviors(component)
       addBraveTemplateModifications(component)
       addBraveStyleOverrides(component)
