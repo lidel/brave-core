@@ -31,6 +31,23 @@ cr.define('settings', function() {
     }
   }
 
+  const defaultHandler = {
+    get: function(obj, prop) {
+      return true
+    }
+  }
+
+  const defaultSections = [
+    'extensions',
+    'getStarted'
+  ]
+
+  const hiddenSections = [
+    'a11y',
+    'people',
+    'defaultBrowser'
+  ]
+
   const handler = {
     get: function(obj, prop) {
       if (prop === 'appearance') return new Proxy({}, appearanceHandler);
@@ -40,8 +57,9 @@ cr.define('settings', function() {
           return false;
         return true;
       }
-      if (prop === 'privacy') return new Proxy({}, privacyHandler);
-      return prop === 'a11y' ? false : true;
+      if (prop === 'privacy') return new Proxy({}, privacyHandler)
+      if (defaultSections.includes(prop)) return new Proxy({}, defaultHandler)
+      return hiddenSections.includes(prop) ? false : true;
     }
   };
 

@@ -3,17 +3,19 @@
 <link rel="import" href="icons.html">
 <link rel="import" href="brave_icons.html">
 <link rel="import" href="chrome://brave-resources/polymer_overriding.html">
-
+<link rel="import" href="brave_default_extensions_page/brave_default_extensions_page.html">
+<link rel="import" href="default_brave_shields_page/default_brave_shields_page.html">
+<link rel="import" href="brave_sync_page/brave_sync_page.html">
+<link rel="import" href="default_browser_page/default_browser_page.html">
 
 <dom-module id="brave-settings-getting-started">
   <template>
     <style include="settings-shared md-select iron-flex">
     </style>
-    <div class="settings-box">
-      <div class="start">
-        Hi
-      </div>
-    </div>
+    <settings-people-page prefs="{{prefs}}"
+      page-visibility="[[pageVisibility]]">
+    </settings-people-page>
+    <settings-default-browser-page></settings-default-browser-page>
   </template>
 </dom-module>
 
@@ -108,17 +110,26 @@
 
 
 <dom-module id="brave-override-style-settings-basic-page">
-    <template>
-      <style>
-        :host {
-          min-width: 544px !important;
-        }
+  <template>
+    <style>
+      :host {
+        min-width: 544px !important;
+      }
 
-      </style>
-    </template>
-  </dom-module>
+    </style>
+  </template>
+</dom-module>
 
-
+<dom-module id="brave-override-style-settings-people-page">
+  <template>
+    <style>
+      #picture-subpage-trigger
+      {
+        display: none !important;
+      }
+    </style>
+  </template>
+</dom-module>
 
 <script src="brave_settings_overrides.js"></script>
 
