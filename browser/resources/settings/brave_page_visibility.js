@@ -19,12 +19,6 @@ cr.define('settings', function() {
     }
   };
 
-  const braveShieldsDefaultsHandler = {
-    get: function(obj, prop) {
-      return true;
-    }
-  };
-
   const privacyHandler = {
     get: function(obj, prop) {
       return true;
@@ -39,7 +33,8 @@ cr.define('settings', function() {
 
   const defaultSections = [
     'extensions',
-    'getStarted'
+    'getStarted',
+    'shields',
   ]
 
   const hiddenSections = [
@@ -51,7 +46,6 @@ cr.define('settings', function() {
   const handler = {
     get: function(obj, prop) {
       if (prop === 'appearance') return new Proxy({}, appearanceHandler);
-      if (prop === 'braveShields') return new Proxy({}, braveShieldsDefaultsHandler);
       if (prop === 'braveSync') {
         if (loadTimeData.getBoolean('isSyncDisabled'))
           return false;
