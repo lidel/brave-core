@@ -39,7 +39,10 @@
         const template = domModule.querySelector('template')
         if (template) {
           const templateContent = template.content
+          const t0 = performance.now()
           allBraveTemplateModificationsMap[component.is](templateContent)
+          const t1 = performance.now()
+          console.debug(`Modifying template '${component.is}' took ${t1 - t0}ms`)
         }
       }
       delete allBraveTemplateModificationsMap[component.is]
