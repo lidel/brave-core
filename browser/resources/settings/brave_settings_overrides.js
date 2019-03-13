@@ -72,8 +72,7 @@ BravePatching.RegisterPolymerTemplateModifications({
     }
     // Add 'Get Started' item
     const peopleEl = getMenuElement(templateContent, '/people')
-    // TODO(petemill): translate
-    const getStartedEl = createMenuElement('Get Started', '/getStarted', 'brave_settings:logos-thumbs-up')
+    const getStartedEl = createMenuElement(loadTimeData.getString('braveGetStartedTitle'), '/getStarted', 'brave_settings:logos-thumbs-up')
     peopleEl.insertAdjacentElement('afterend', getStartedEl)
     // Remove People item
     peopleEl.remove()
@@ -137,7 +136,7 @@ BravePatching.RegisterPolymerTemplateModifications({
       const sectionsFromTop = document.createElement('div')
       sectionsFromTop.innerHTML = `
         <template is="dom-if" if="[[showPage_(pageVisibility.getStarted)]]">
-          <settings-section page-title="Get Started" section="getStarted">
+          <settings-section page-title="${loadTimeData.getString('braveGetStartedTitle')}" section="getStarted">
             <brave-settings-getting-started prefs={{prefs}} page-visibility=[[pageVisibility]]></brave-settings-getting-started>
           </settings-section>
         </template>
