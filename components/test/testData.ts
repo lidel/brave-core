@@ -185,6 +185,11 @@ export const getMockChrome = () => {
       get: function (topSites: NewTab.Site[]) {
         return
       }
+    },
+    bookmarks: {
+      search: function (query: string, callback: (results: chrome.bookmarks.BookmarkTreeNode[]) => void) {
+        return
+      }
     }
   }
 }
