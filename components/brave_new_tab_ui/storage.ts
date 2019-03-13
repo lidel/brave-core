@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { randomBackgroundImage } from './api/background'
+import * as backgroundAPI from './api/background'
 
 // Utils
 import { debounce } from '../common/debounce'
@@ -42,7 +42,7 @@ export const getLoadTimeData = (state: NewTab.State) => {
 
 const cleanData = (state: NewTab.State): NewTab.State => {
   state = { ...state }
-  state.backgroundImage = randomBackgroundImage()
+  state.backgroundImage = backgroundAPI.randomBackgroundImage()
   state = getLoadTimeData(state)
   return state
 }

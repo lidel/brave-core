@@ -15,7 +15,7 @@ transpile_web_ui("brave_new_tab_ui") {
     "components/privateTab/torContent.tsx",
     "components/privateTab/torTab.tsx",
     "components/app.tsx",
-    "constants/backgrounds.ts",
+    "data/background.ts",
     "constants/new_tab_types.ts",
     "reducers/index.ts",
     "reducers/new_tab_reducer.tsx",
