@@ -2,23 +2,10 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-import { bindActionCreators } from 'redux'
-
 // Utils
-import * as newTabActions from './actions/new_tab_actions'
+import * as dataAPI from './api/data'
 import { debounce } from '../common/debounce'
-import store from './store'
 import { isHttpOrHttps } from './helpers/newTabUtils'
-
-let actions: any
-
-const getActions = () => {
-  if (actions) {
-    return actions
-  }
-  actions = bindActionCreators(newTabActions, store.dispatch.bind(store))
-  return actions
-}
 
 /**
  * Obtains a letter / char that represents the current site
@@ -35,18 +22,11 @@ const getLetterFromSite = (site: NewTab.Site) => {
 }
 
 /**
- * Obtains the top sites and submits an action with the results
- */
-export const fetchTopSites = () => {
-  chrome.topSites.get((topSites: NewTab.Site[]) => getActions().topSitesDataUpdated(topSites || []))
-}
-
-/**
  * Obtains the URL's bookmark info and calls an action with the result
  */
 export const fetchBookmarkInfo = (url: string) => {
   chrome.bookmarks.search(url.replace(/^https?:\/\//, ''),
-    (bookmarkTreeNodes) => getActions().bookmarkInfoAvailable(url, bookmarkTreeNodes[0])
+    (bookmarkTreeNodes) => dataAPI.getActions().bookmarkInfoAvailable(url, bookmarkTreeNodes[0])
   )
 }
 
@@ -89,5 +69,5 @@ export const getGridSites = (state: NewTab.State, checkBookmarkInfo?: boolean) =
  * Calculates the top sites grid and calls an action with the results
  */
 export const calculateGridSites = debounce((state: NewTab.State) => {
-  getActions().gridSitesUpdated(getGridSites(state, true))
+  dataAPI.getActions().gridSitesUpdated(getGridSites(state, true))
 }, 10)

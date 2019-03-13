@@ -20,6 +20,7 @@ transpile_web_ui("brave_new_tab_ui") {
     "reducers/index.ts",
     "reducers/new_tab_reducer.tsx",
     "api.ts",
+    "api/data.ts",
     "brave_new_tab.html",
     "brave_new_tab.tsx",
     "storage.ts",

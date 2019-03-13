@@ -9,7 +9,8 @@ import { types } from '../constants/new_tab_types'
 
 // Utils
 import * as storage from '../storage'
-import { fetchBookmarkInfo, getGridSites, calculateGridSites, fetchTopSites } from '../api'
+import { fetchBookmarkInfo, getGridSites, calculateGridSites } from '../api'
+import * as dataAPI from '../api/data'
 
 const updateBookmarkInfo = (state: NewTab.State, url: string, bookmarkTreeNode?: NewTab.Bookmark) => {
   const bookmarks = state.bookmarks
@@ -75,7 +76,7 @@ export const newTabReducer: Reducer<NewTab.State | undefined> = (state: NewTab.S
     state = storage.load()
 
     setImmediate(() => {
-      fetchTopSites()
+      dataAPI.fetchTopSites()
     })
   }
 
