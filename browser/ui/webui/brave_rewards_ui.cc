@@ -108,8 +108,10 @@ class RewardsDOMHandler : public WebUIMessageHandler,
   void GetConfirmationsHistory(const base::ListValue* args);
   void GetRewardsMainEnabled(const base::ListValue* args);
   void OnGetRewardsMainEnabled(bool enabled);
+  void OnGetAdsIsSupportedRegion(bool is_supported);
 
   void GetExcludedPublishersNumber(const base::ListValue* args);
+  void GetAdsIsSupportedRegion(const base::ListValue* args);
 
   void OnConfirmationsHistory(int total_viewed, double estimated_earnings);
 
@@ -282,6 +284,9 @@ void RewardsDOMHandler::RegisterMessages() {
       base::Unretained(this)));
   web_ui()->RegisterMessageCallback("brave_rewards.getExcludedPublishersNumber",
       base::BindRepeating(&RewardsDOMHandler::GetExcludedPublishersNumber,
+      base::Unretained(this)));
+  web_ui()->RegisterMessageCallback("brave_rewards.getAdsIsSupportedRegion",
+      base::BindRepeating(&RewardsDOMHandler::GetAdsIsSupportedRegion,
       base::Unretained(this)));
 }
 
@@ -1017,6 +1022,21 @@ void RewardsDOMHandler::GetExcludedPublishersNumber(
     rewards_service_->GetExcludedPublishersNumber(
         base::Bind(&RewardsDOMHandler::OnGetExcludedPublishersNumber,
                    weak_factory_.GetWeakPtr()));
+  }
+}
+
+void RewardsDOMHandler::GetAdsIsSupportedRegion(
+    const base::ListValue* args) {
+  ads_service_->IsSupportedRegion(base::Bind(
+          &RewardsDOMHandler::OnGetAdsIsSupportedRegion,
+          weak_factory_.GetWeakPtr()));
+}
+
+void RewardsDOMHandler::OnGetAdsIsSupportedRegion(
+    bool is_supported) {
+  if (web_ui()->CanCallJavascript()) {
+    web_ui()->CallJavascriptFunctionUnsafe("brave_rewards.adsIsSupportedRegion",
+        base::Value(is_supported));
   }
 }
 
