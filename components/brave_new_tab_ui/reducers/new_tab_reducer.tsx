@@ -7,32 +7,13 @@ import { Reducer } from 'redux'
 // Constants
 import { types } from '../constants/new_tab_types'
 
+// API
+import { getGridSites, calculateGridSites } from '../api'
+import * as dataAPI from '../api/data'
+import * as bookmarksAPI from '../api/topSites/bookmarks'
+
 // Utils
 import * as storage from '../storage'
-import { fetchBookmarkInfo, getGridSites, calculateGridSites } from '../api'
-import * as dataAPI from '../api/data'
-
-const updateBookmarkInfo = (state: NewTab.State, url: string, bookmarkTreeNode?: NewTab.Bookmark) => {
-  const bookmarks = state.bookmarks
-  const gridSites = state.gridSites.slice()
-  const topSites = state.topSites.slice()
-  const pinnedTopSites = state.pinnedTopSites.slice()
-  // The default empty object is just to avoid null checks below
-  const gridSite: Partial<NewTab.Site> = gridSites.find((s) => s.url === url) || {}
-  const topSite: Partial<NewTab.Site> = topSites.find((s) => s.url === url) || {}
-  const pinnedTopSite: Partial<NewTab.Site> = pinnedTopSites.find((s) => s.url === url) || {}
-
-  if (bookmarkTreeNode) {
-    bookmarks[url] = bookmarkTreeNode
-    gridSite.bookmarked = topSite.bookmarked = pinnedTopSite.bookmarked = bookmarkTreeNode
-  } else {
-    delete bookmarks[url]
-    gridSite.bookmarked = topSite.bookmarked = pinnedTopSite.bookmarked = undefined
-  }
-  state = { ...state, bookmarks, gridSites }
-
-  return state
-}
 
 const onDraggedSite = (state: NewTab.State, url: string, destUrl: string) => {
   const gridSitesWithoutPreview = getGridSites(state)
@@ -90,7 +71,7 @@ export const newTabReducer: Reducer<NewTab.State | undefined> = (state: NewTab.S
           title: topSite.title,
           url: topSite.url
         }, () => {
-          fetchBookmarkInfo(payload.url)
+          bookmarksAPI.fetchBookmarkInfo(payload.url)
         })
       }
       break
@@ -98,7 +79,7 @@ export const newTabReducer: Reducer<NewTab.State | undefined> = (state: NewTab.S
       const bookmarkInfo = state.bookmarks[payload.url]
       if (bookmarkInfo) {
         chrome.bookmarks.remove(bookmarkInfo.id, () => {
-          fetchBookmarkInfo(payload.url)
+          bookmarksAPI.fetchBookmarkInfo(payload.url)
         })
       }
       break
@@ -186,7 +167,7 @@ export const newTabReducer: Reducer<NewTab.State | undefined> = (state: NewTab.S
       break
 
     case types.NEW_TAB_BOOKMARK_INFO_AVAILABLE:
-      state = updateBookmarkInfo(state, payload.queryUrl, payload.bookmarkTreeNode)
+      state = bookmarksAPI.updateBookmarkInfo(state, payload.queryUrl, payload.bookmarkTreeNode)
       break
 
     case types.NEW_TAB_GRID_SITES_UPDATED:

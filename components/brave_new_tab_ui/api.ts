@@ -2,8 +2,11 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-// Utils
+// API
 import * as dataAPI from './api/data'
+import * as bookmarksAPI from './api/topSites/bookmarks'
+
+// Utils
 import { debounce } from '../common/debounce'
 import { isHttpOrHttps } from './helpers/newTabUtils'
 
@@ -19,15 +22,6 @@ const getLetterFromSite = (site: NewTab.Site) => {
   }
   name = site.title || name || '?'
   return name.charAt(0).toUpperCase()
-}
-
-/**
- * Obtains the URL's bookmark info and calls an action with the result
- */
-export const fetchBookmarkInfo = (url: string) => {
-  chrome.bookmarks.search(url.replace(/^https?:\/\//, ''),
-    (bookmarkTreeNodes) => dataAPI.getActions().bookmarkInfoAvailable(url, bookmarkTreeNodes[0])
-  )
 }
 
 export const getGridSites = (state: NewTab.State, checkBookmarkInfo?: boolean) => {
@@ -59,7 +53,7 @@ export const getGridSites = (state: NewTab.State, checkBookmarkInfo?: boolean) =
     gridSite.bookmarked = state.bookmarks[gridSite.url]
 
     if (checkBookmarkInfo && !gridSite.bookmarked) {
-      fetchBookmarkInfo(gridSite.url)
+      bookmarksAPI.fetchBookmarkInfo(gridSite.url)
     }
   })
   return gridSites
