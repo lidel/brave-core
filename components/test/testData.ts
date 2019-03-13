@@ -180,6 +180,11 @@ export const getMockChrome = () => {
     },
     extension: {
       inIncognitoContext: new ChromeEvent()
+    },
+    topSites: {
+      get: function (topSites: NewTab.Site[]) {
+        return
+      }
     }
   }
 }
