@@ -22,6 +22,7 @@ transpile_web_ui("brave_new_tab_ui") {
     "api.ts",
     "api/data.ts",
     "api/topSites/bookmarks.ts",
+    "api/topSites/dnd.ts",
     "brave_new_tab.html",
     "brave_new_tab.tsx",
     "storage.ts",

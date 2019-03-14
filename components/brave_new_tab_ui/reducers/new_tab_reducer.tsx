@@ -8,49 +8,13 @@ import { Reducer } from 'redux'
 import { types } from '../constants/new_tab_types'
 
 // API
-import { getGridSites, calculateGridSites } from '../api'
+import { calculateGridSites } from '../api'
 import * as dataAPI from '../api/data'
 import * as bookmarksAPI from '../api/topSites/bookmarks'
+import * as dndAPI from '../api/topSites/dnd'
 
 // Utils
 import * as storage from '../storage'
-
-const onDraggedSite = (state: NewTab.State, url: string, destUrl: string) => {
-  const gridSitesWithoutPreview = getGridSites(state)
-  const currentPositionIndex = gridSitesWithoutPreview.findIndex(site => site.url === url)
-  const finalPositionIndex = gridSitesWithoutPreview.findIndex(site => site.url === destUrl)
-  let pinnedTopSites = state.pinnedTopSites.slice()
-
-  // A site that is not pinned yet will become pinned
-  const pinnedMovingSite = pinnedTopSites.find(site => site.url === url)
-  if (!pinnedMovingSite) {
-    const movingTopSite = Object.assign({}, gridSitesWithoutPreview.find(site => site.url === url))
-    movingTopSite.index = currentPositionIndex
-    movingTopSite.pinned = true
-    pinnedTopSites.push(movingTopSite)
-  }
-
-  pinnedTopSites = pinnedTopSites.map((pinnedTopSite) => {
-    pinnedTopSite = Object.assign({}, pinnedTopSite)
-    const currentIndex = pinnedTopSite.index
-    if (currentIndex === currentPositionIndex) {
-      pinnedTopSite.index = finalPositionIndex
-    } else if (currentIndex > currentPositionIndex && pinnedTopSite.index <= finalPositionIndex) {
-      pinnedTopSite.index = pinnedTopSite.index - 1
-    } else if (currentIndex < currentPositionIndex && pinnedTopSite.index >= finalPositionIndex) {
-      pinnedTopSite.index = pinnedTopSite.index + 1
-    }
-    return pinnedTopSite
-  })
-  state = { ...state, pinnedTopSites }
-  state = { ...state, gridSites: getGridSites(state) }
-  return state
-}
-
-const onDragEnd = (state: NewTab.State) => {
-  state = { ...state, gridSites: getGridSites(state) }
-  return state
-}
 
 export const newTabReducer: Reducer<NewTab.State | undefined> = (state: NewTab.State | undefined, action: any) => {
   if (state === undefined) {
@@ -159,11 +123,11 @@ export const newTabReducer: Reducer<NewTab.State | undefined> = (state: NewTab.S
       break
 
     case types.NEW_TAB_SITE_DRAGGED:
-      state = onDraggedSite(state, payload.fromUrl, payload.toUrl)
+      state = dndAPI.onDraggedSite(state, payload.fromUrl, payload.toUrl)
       break
 
     case types.NEW_TAB_SITE_DRAG_END:
-      state = onDragEnd(state)
+      state = dndAPI.onDragEnd(state)
       break
 
     case types.NEW_TAB_BOOKMARK_INFO_AVAILABLE:
