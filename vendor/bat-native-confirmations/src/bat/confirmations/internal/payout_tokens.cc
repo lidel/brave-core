@@ -10,8 +10,6 @@
 #include "bat/confirmations/internal/unblinded_tokens.h"
 #include "bat/confirmations/internal/redeem_payment_tokens_request.h"
 
-#include "base/rand_util.h"
-
 using std::placeholders::_1;
 using std::placeholders::_2;
 using std::placeholders::_3;
@@ -125,16 +123,11 @@ void PayoutTokens::OnPayout(const Result result) {
 }
 
 void PayoutTokens::ScheduleNextPayout() const {
-  auto start_timer_in = CalculateTimerForNextPayout();
+  confirmations_->UpdateNextTokenRedemptionDate();
+  confirmations_->SaveState();
+
+  auto start_timer_in = confirmations_->CalculateTokenRedemptionTimeInSeconds();
   confirmations_->StartPayingOutRedeemedTokens(start_timer_in);
-}
-
-uint64_t PayoutTokens::CalculateTimerForNextPayout() const {
-  auto start_timer_in = kPayoutAfterSeconds;
-  auto rand_delay = base::RandInt(0, start_timer_in / 10);
-  start_timer_in += rand_delay;
-
-  return start_timer_in;
 }
 
 }  // namespace confirmations
