@@ -1,0 +1,37 @@
+diff --git a/chrome/app/resources/manpage.1.in b/chrome/app/resources/manpage.1.in
+index 1e4fe85907e3548022671465586c3227b3d2607d..1a85bb52c716c54506b3f2fa0fc9b5e58f42ec80 100644
+--- a/chrome/app/resources/manpage.1.in
++++ b/chrome/app/resources/manpage.1.in
+@@ -3,16 +3,16 @@
+ .TH @@PACKAGE@@ 1 "" "" "USER COMMANDS"
+ 
+ .SH NAME
+-@@PACKAGE@@ \- the web browser from Google
++@@PACKAGE@@ \- Brave Browser
+ 
+ .SH SYNOPSIS
+ .B @@PACKAGE@@
+ [\fIOPTION\fR] [\fIPATH\fR|\fIURL\fR]
+ 
+ .SH DESCRIPTION
+-See the Google Chrome help center for help on using the browser.
++See the Brave Help Center for help on using the browser.
+ .IP
+-<https://support.google.com/chrome/>
++<https://support.brave.com>
+ .PP
+ This manpage only describes invocation, environment, and arguments.
+ 
+@@ -161,10 +161,10 @@ Default directory for cache data.  (Why?  See
+ .SH BUGS
+ Bug tracker:
+ .IP
+-http://code.google.com/p/chromium/issues/list
++https://github.com/brave/brave-browser/issues
+ .PP
+ Be sure to do your search within "All Issues" before reporting bugs,
+ and be sure to pick the "Defect on Linux" template when filing a new one.
+ 
+ .SH AUTHOR
+-The Chromium team \- <http://www.chromium.org>
++The Brave Authors \- <https://brave.com/>

@@ -1,0 +1,35 @@
+diff --git a/chrome/installer/linux/common/google-chrome/google-chrome.appdata.xml.template b/chrome/installer/linux/common/google-chrome/google-chrome.appdata.xml.template
+index 828dc1f0b625f411538751a8f8a12088aed7d729..b11609c809cc7931c512e3c30be911d82db66fa7 100644
+--- a/chrome/installer/linux/common/google-chrome/google-chrome.appdata.xml.template
++++ b/chrome/installer/linux/common/google-chrome/google-chrome.appdata.xml.template
+@@ -2,11 +2,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <component type="desktop">
+   <id>@@PACKAGE@@.desktop</id>
+-  <update_contact>chromium-dev@chromium.org</update_contact>
++  <update_contact>support@brave.com</update_contact>
+   <metadata_license>CC0-1.0</metadata_license>
+-  <project_license>Freeware under Google Chrome Terms of Service</project_license>
++  <project_license>MPL-2.0</project_license>
+   <name>@@MENUNAME@@</name>
+-  <summary>The web browser from Google</summary>
++  <summary>Brave Browser</summary>
+   <description>
+     <p>
+     @@FULLDESC@@
+@@ -15,12 +15,12 @@
+   <url type="homepage">@@PRODUCTURL@@</url>
+   <screenshots>
+     <screenshot type="default">
+-      <image>https://www.gstatic.com/chrome/appstream/chrome-2.png</image>
++      <image>https://www.brave.com/images/browser.png</image>
+       <caption/>
+     </screenshot>
+   </screenshots>
+   <translation/>
+   <developer_name>Google</developer_name>
+-  <url type="bugtracker">https://support.google.com/chrome/?p=feedback</url>
+-  <url type="help">https://support.google.com/chrome</url>
++  <url type="bugtracker">https://github.com/brave/brave-browser/issues</url>
++  <url type="help">https://support.brave.com</url>
+ </component>
